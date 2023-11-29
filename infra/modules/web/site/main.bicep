@@ -228,7 +228,7 @@ module app_appsettings 'config--appsettings/main.bicep' = if (!empty(appSettings
     storageAccountResourceId: storageAccountResourceId
     appInsightResourceId: appInsightResourceId
     setAzureWebJobsDashboard: setAzureWebJobsDashboard
-    appSettingsKeyValuePairs: appSettingsKeyValuePairs
+    appSettingsKeyValuePairs: union(appSettingsKeyValuePairs, dockerAppSettings)
     enableDefaultTelemetry: enableReferencedModulesTelemetry
   }
 }
