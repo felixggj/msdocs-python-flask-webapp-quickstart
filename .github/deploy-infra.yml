@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  RESOURCE_GROUP_DEV: aguadamillas_resources
+  RESOURCE_GROUP_DEV: aguadamillas_students_1
   SUBSCRIPTION_ID_DEV: e0b9b2cada-61bc-4b5a-bd7a-52c606726b3b
   USER_ALIAS: felixgg
 
