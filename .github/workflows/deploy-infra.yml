@@ -27,7 +27,7 @@ jobs:
         run: az bicep build --file ./infra/main.bicep
 
   deploy:
-    if: github.ref == 'refs/heads/dev'
+    #    if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     needs: build
     environment:
