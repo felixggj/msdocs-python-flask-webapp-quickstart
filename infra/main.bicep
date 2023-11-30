@@ -22,10 +22,10 @@ module containerRegistry 'modules/container-registry/registry/main.bicep' = {
     name: containerRegistryName
     location: location
     acrAdminUserEnabled: true
-    adminCredentialKeyVaultResourceId: resourceId('Microsoft.KeyVault/vaults', keyVaultName)
-    adminCredentialKeyVaultSecretUserName: keyVaultSecretNameACRUsername
-    adminCredentialKeyVaultSecretUserPassword1: keyVaultSecretNameACRPassword1
-    adminCredentialKeyVaultSecretUserPassword2: keyVaultSecretNameACRPassword2
+    adminCredentialsKeyVaultResourceId: resourceId('Microsoft.KeyVault/vaults', keyVaultName)
+    adminCredentialsKeyVaultSecretUserName: keyVaultSecretNameACRUsername
+    adminCredentialsKeyVaultSecretUserPassword1: keyVaultSecretNameACRPassword1
+    adminCredentialsKeyVaultSecretUserPassword2: keyVaultSecretNameACRPassword2
   }
 }
 

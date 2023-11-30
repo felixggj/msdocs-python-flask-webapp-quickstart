@@ -288,6 +288,34 @@ module registry_webhooks 'webhook/main.bicep' = [for (webhook, index) in webhook
   }
 }]
 
+resource adminCredentialsKeyVault 'Microsoft.KeyVault/vaults@2021-10-01' existing = if (!empty(acrAdminUserEnabled)) {
+  name: last(split((!empty(adminCredentialsKeyVaultResourceId) ? adminCredentialsKeyVaultResourceId : 'dummyVault'), '/'))
+}
+
+resource secretAdminUserName 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = if (!empty(adminCredentialsKeyVault)) {
+  name: !empty(adminCredentialsKeyVaultSecretUserName) ? adminCredentialsKeyVaultSecretUserName : 'acr-username'
+  parent: adminCredentialsKeyVault
+  properties: {
+   value: registry.listCredentials().username
+  }
+}
+
+resource secretAdminPassword1 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = if (!empty(adminCredentialsKeyVault)) {
+  name: !empty(adminCredentialsKeyVaultSecretUserPassword1) ? adminCredentialsKeyVaultSecretUserPassword1 : 'acr-password-1'
+  parent: adminCredentialsKeyVault
+  properties: {
+   value: registry.listCredentials().passwords[0].value
+  }
+}
+
+resource secretAdminPassword2 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = if (!empty(adminCredentialsKeyVault)) {
+  name: !empty(adminCredentialsKeyVaultSecretUserPassword2) ? adminCredentialsKeyVaultSecretUserPassword2 : 'acr-password-2'
+  parent: adminCredentialsKeyVault
+  properties: {
+   value: registry.listCredentials().passwords[1].value
+  }
+}
+
 resource registry_lock 'Microsoft.Authorization/locks@2020-05-01' = if (!empty(lock ?? {}) && lock.?kind != 'None') {
   name: lock.?name ?? 'lock-${name}'
   properties: {
