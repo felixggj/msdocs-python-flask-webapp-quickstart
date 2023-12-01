@@ -50,7 +50,7 @@ jobs:
           template: ./infra/key-vault.bicep
           parameters: ./infra/parameters/key-vault.json
           deploymentName: "${{ env.USER_ALIAS }}-kv"
-          failOnStdErr: false
+          # failOnStdErr: false
 
       # Deploy Bicep file
       - name: deploy-main
