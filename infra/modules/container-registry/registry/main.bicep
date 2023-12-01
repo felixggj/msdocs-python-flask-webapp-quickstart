@@ -140,6 +140,25 @@ param customerManagedKey customerManagedKeyType
 @description('Optional. Array of Cache Rules. Note: This is a preview feature ([ref](https://learn.microsoft.com/en-us/azure/container-registry/tutorial-registry-cache#cache-for-acr-preview)).')
 param cacheRules array = []
 
+// Added for ACR admin credentials key vault:
+
+@description('Optional. Resource ID of the Admin Credentials Key Vault.')
+param adminCredentialsKeyVaultResourceId string = ''
+
+@description('Optional. Name of the secret for the ACR admin username.')
+@secure() 
+param adminCredentialsKeyVaultSecretUserName string = ''
+
+@description('Optional. Name of the secret for the ACR admin password 1.')
+@secure() 
+param adminCredentialsKeyVaultSecretUserPassword1 string = ''
+
+@description('Optional. Name of the secret for the ACR admin password 2.')
+@secure() 
+param adminCredentialsKeyVaultSecretUserPassword2 string = ''
+
+// End
+
 var formattedUserAssignedIdentities = reduce(map((managedIdentities.?userAssignedResourceIds ?? []), (id) => { '${id}': {} }), {}, (cur, next) => union(cur, next)) // Converts the flat array to an object like { '${id1}': {}, '${id2}': {} }
 
 var identity = !empty(managedIdentities) ? {
@@ -288,11 +307,11 @@ module registry_webhooks 'webhook/main.bicep' = [for (webhook, index) in webhook
   }
 }]
 
-resource adminCredentialsKeyVault 'Microsoft.KeyVault/vaults@2021-10-01' existing = if (!empty(acrAdminUserEnabled)) {
+resource adminCredentialsKeyVault 'Microsoft.KeyVault/vaults@2021-10-01' existing = if (!empty(adminCredentialsKeyVaultResourceId)) {
   name: last(split((!empty(adminCredentialsKeyVaultResourceId) ? adminCredentialsKeyVaultResourceId : 'dummyVault'), '/'))
 }
 
-resource secretAdminUserName 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = if (!empty(adminCredentialsKeyVault)) {
+resource secretAdminUserName 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = if (!empty(adminCredentialsKeyVaultSecretUserName)) {
   name: !empty(adminCredentialsKeyVaultSecretUserName) ? adminCredentialsKeyVaultSecretUserName : 'acr-username'
   parent: adminCredentialsKeyVault
   properties: {
@@ -300,7 +319,7 @@ resource secretAdminUserName 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = if
   }
 }
 
-resource secretAdminPassword1 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = if (!empty(adminCredentialsKeyVault)) {
+resource secretAdminPassword1 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = if (!empty(adminCredentialsKeyVaultSecretUserPassword1)) {
   name: !empty(adminCredentialsKeyVaultSecretUserPassword1) ? adminCredentialsKeyVaultSecretUserPassword1 : 'acr-password-1'
   parent: adminCredentialsKeyVault
   properties: {
@@ -308,7 +327,7 @@ resource secretAdminPassword1 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = i
   }
 }
 
-resource secretAdminPassword2 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = if (!empty(adminCredentialsKeyVault)) {
+resource secretAdminPassword2 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = if (!empty(adminCredentialsKeyVaultSecretUserPassword2)) {
   name: !empty(adminCredentialsKeyVaultSecretUserPassword2) ? adminCredentialsKeyVaultSecretUserPassword2 : 'acr-password-2'
   parent: adminCredentialsKeyVault
   properties: {
