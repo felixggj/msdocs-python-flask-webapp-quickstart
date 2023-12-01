@@ -8,9 +8,6 @@
     "location": {
       "value": "North Europe"
     },
-    "enableVaultForDeployment": {
-      "value": true
-    },
     "roleAssignments": {
       "value": [
         {
