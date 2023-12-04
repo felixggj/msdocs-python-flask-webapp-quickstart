@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "keyVaultName": {
-      "value": "felixgg-kv"
+      "value": "felixggkv"
     },
     "location": {
       "value": "North Europe"
@@ -18,7 +18,7 @@
       ]
     },
     "containerRegistryName": {
-      "value": "felixgg-acr"
+      "value": "felixggacr"
     }
   }
 }
