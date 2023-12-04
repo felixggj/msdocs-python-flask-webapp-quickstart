@@ -22,7 +22,7 @@ module containerRegistry 'modules/container-registry/registry/main.bicep' = {
   dependsOn: [
     keyvault
   ]
-  name: '${uniqueString(deployment().name)}-acr'
+  name: '${uniqueString(deployment().name)}acr'
   params: {
     name: containerRegistryName
     location: location

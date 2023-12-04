@@ -9,9 +9,9 @@ env:
   REGISTRY_LOGIN_SERVER: "felixggacr.azurecr.io"
   KEY_VAULT_SECRET_NAME_ACR_USERNAME: "acr-username"
   KEY_VAULT_SECRET_NAME_ACR_PASSWORD: "acr-password1"
-  KEY_VAULT_NAME: "felixggkv"
-  IMAGE_BASE_NAME: "felixggappex3"
-  AZURE_WEBAPP_NAME: "felixggex3"
+  KEY_VAULT_NAME: "felixgg-kv"
+  IMAGE_BASE_NAME: "felixggapp-ex3"
+  AZURE_WEBAPP_NAME: "felixgg-ex3"
 
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
 
       - name: "get docker registry credentials from Azure Key Vault"
         uses: azure/CLI@v1
-        with: 
+        with:
           inlineScript: |
             echo "REGISTRY_USERNAME=$(az keyvault secret show --name ${{ env.KEY_VAULT_SECRET_NAME_ACR_USERNAME }} --vault-name ${{ env.KEY_VAULT_NAME }} --query value -o tsv)" >> $GITHUB_ENV
             echo "REGISTRY_PASSWORD=$(az keyvault secret show --name ${{ env.KEY_VAULT_SECRET_NAME_ACR_PASSWORD }} --vault-name ${{ env.KEY_VAULT_NAME }} --query value -o tsv)" >> $GITHUB_ENV

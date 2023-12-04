@@ -3,19 +3,19 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "keyVaultName": {
-      "value": "felixggkv"
+      "value": "felixgg-kv"
     },
     "containerRegistryName": {
       "value": "felixggacr"
     },
     "appServicePlanName": {
-      "value": "felixggasp"
+      "value": "felixgg-asp"
     },
     "siteName": {
-      "value": "felixggex3"
+      "value": "felixgg-ex3"
     },
     "containerRegistryImageName": {
-      "value": "felixggappex3"
+      "value": "felixggapp-ex3"
     }
   }
 }
