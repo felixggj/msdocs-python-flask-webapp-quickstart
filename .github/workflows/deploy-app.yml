@@ -9,9 +9,9 @@ env:
   REGISTRY_LOGIN_SERVER: "felixggacr.azurecr.io"
   KEY_VAULT_SECRET_NAME_ACR_USERNAME: "acr-username"
   KEY_VAULT_SECRET_NAME_ACR_PASSWORD: "acr-password1"
-  KEY_VAULT_NAME: "felixgg-kv"
-  IMAGE_BASE_NAME: "felixggapp-ex3"
-  AZURE_WEBAPP_NAME: "felixgg-ex3"
+  KEY_VAULT_NAME: "felixggkv"
+  IMAGE_BASE_NAME: "felixggappex3"
+  AZURE_WEBAPP_NAME: "felixggex3"
 
 jobs:
   build:
