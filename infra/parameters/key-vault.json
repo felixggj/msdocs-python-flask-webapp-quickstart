@@ -16,6 +16,9 @@
           "principalType": "ServicePrincipal"
         }
       ]
+    },
+    "containerRegistryName": {
+      "value": "felixgg-acr"
     }
   }
 }
