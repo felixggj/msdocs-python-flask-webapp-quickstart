@@ -1,3 +1,4 @@
+// Parameters for main deployment
 param keyVaultName string
 param containerRegistryName string
 param containerRegistryImageName string
